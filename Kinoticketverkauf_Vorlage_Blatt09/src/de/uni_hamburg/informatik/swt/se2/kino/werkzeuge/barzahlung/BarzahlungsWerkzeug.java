@@ -34,6 +34,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
 {
 
     private BarzahlungsWerkzeugUI _ui;
+  //TODO in Geldbetrag umwandeln
     private int _preis;
     private boolean _barzahlungErfolgreich;
     private boolean _ausreichenderGeldbetrag;
@@ -168,6 +169,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         }
         try
         {
+            //TODO ersetze Logik durch Geldbetragmethoden
             int eingabeBetrag = Integer.parseInt(eingabePreis);
             _ausreichenderGeldbetrag = (eingabeBetrag >= _preis);
             int differenz = Math.abs(eingabeBetrag - _preis);
