@@ -21,17 +21,17 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
         Matcher matcher = _pattern.matcher(s);
         int betrag = 0;
         matcher.matches();
-        if(matcher.group(2).equals(""))
-        {
-            betrag = Integer.parseInt(matcher.group(0));
-            System.out.println("a: " + betrag);
-        }
-        else
+        if(matcher.group(2).equals(","))
         {
             betrag = (int) (Integer.parseInt(matcher.group(3))*(100/Math.pow(10, matcher.group(3).length())));
             System.out.println("b: " + betrag);
             betrag += Integer.parseInt(matcher.group(1))*100;
             System.out.println("c: " + betrag);
+        }
+        else
+        {
+            betrag = Integer.parseInt(matcher.group(0));
+            System.out.println("a: " + betrag);
         }
         return new Geldbetrag(betrag);
     }
