@@ -1,32 +1,55 @@
 package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public final class Geldbetrag implements Comparable<Geldbetrag>
 {
     
     private final int _centBetrag;
     
+    private final static Pattern _pattern = Pattern.compile("(\\d{1,}),?(\\d{1,2})");
+    
 
-    private Geldbetrag(int i)
+    private Geldbetrag(int betrag)
     {
-        _centBetrag = i;  
+        _centBetrag = betrag;  
+    }
+
+    public static Geldbetrag select(String s)
+    {
+        Matcher matcher = _pattern.matcher(s);
+        int betrag = 0;
+        matcher.matches();
+        if (matcher.group(2) != null)
+        {
+            betrag = Integer.parseInt(matcher.group(2));
+        }
+        betrag += Integer.parseInt(matcher.group(1))*Math.pow(10, matcher.group(2).length());
+        return new Geldbetrag(betrag);
+    }
+    
+    public static Geldbetrag select(int betrag)
+    {
+        return new Geldbetrag(betrag);
     }
     
     
     @Override
-    public int compareTo(Geldbetrag g)
+    public int compareTo(Geldbetrag that)
     {
-        return 0;
+        return this._centBetrag-that._centBetrag;
     }
 
     @Override
     public boolean equals(Object o)
     {
-        return true;
+        return false;
     }
     
-    private boolean equals(Geldbetrag andererGeldbetrag)
+    private boolean equals(Geldbetrag that)
     {
-        return true;
+        return false;
     }
 
     @Override
@@ -43,26 +66,12 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
 
     public int getEuro()
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return _centBetrag/100;
     }
 
     public int getCent()
     {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    public static Geldbetrag select(String s)
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
-    public static Geldbetrag select(int i)
-    {
-        // TODO Auto-generated method stub
-        return null;
+        return _centBetrag%100;
     }
 
     public Geldbetrag add(Geldbetrag g2)
@@ -73,8 +82,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
 
     public boolean istPositiv()
     {
-        // TODO Auto-generated method stub
-        return true;
+        return false;
     }
 
     public Geldbetrag subtract(Geldbetrag g2)
@@ -88,6 +96,4 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
         // TODO Auto-generated method stub
         return null;
     }
-    
-    
 }
