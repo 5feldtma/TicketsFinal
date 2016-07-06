@@ -16,18 +16,18 @@ public class GeldbetragTest
         assertTrue(g1.istPositiv());
         
         Geldbetrag g2 = Geldbetrag.select(-1642);
-        assertEquals(16, g2.getEuro());
+        assertEquals(-16, g2.getEuro());//TODO soll hier 16 oder -16 gefordert werden?
         assertEquals(42, g2.getCent());
         assertFalse(g2.istPositiv());
         
         Geldbetrag g3 = Geldbetrag.select("276,3");
-        assertEquals(151, g3.getEuro());
-        assertEquals(3, g3.getCent());
+        assertEquals(276, g3.getEuro());
+        assertEquals(30, g3.getCent());
         assertTrue(g3.istPositiv());
         
         Geldbetrag g4 = Geldbetrag.select("6,19");
-        assertEquals(151, g4.getEuro());
-        assertEquals(3, g4.getCent());
+        assertEquals(6, g4.getEuro());
+        assertEquals(19, g4.getCent());
         assertTrue(g4.istPositiv());
     }
 
