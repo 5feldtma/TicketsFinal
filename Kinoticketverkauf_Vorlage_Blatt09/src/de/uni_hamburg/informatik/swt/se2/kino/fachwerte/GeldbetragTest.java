@@ -29,6 +29,16 @@ public class GeldbetragTest
         assertEquals(6, g4.getEuro());
         assertEquals(19, g4.getCent());
         assertTrue(g4.istPositiv());
+        
+        Geldbetrag g5 = Geldbetrag.select("7");
+        assertEquals(0, g5.getEuro());
+        assertEquals(7, g5.getCent());
+        assertTrue(g5.istPositiv());
+        
+        Geldbetrag g6 = Geldbetrag.select("0");
+        assertEquals(0, g6.getEuro());
+        assertEquals(0, g6.getCent());
+        assertTrue(g6.istPositiv());//TODO ist null positiv?
     }
 
     @Test

@@ -8,7 +8,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
     
     private final int _centBetrag;
     
-    private final static Pattern _pattern = Pattern.compile("(\\d{1,})(,?)(\\d{0,2})");
+    private final static Pattern _pattern = Pattern.compile("(\\d{0,})(,?)(\\d{1,2})");
     
 
     private Geldbetrag(int betrag)
@@ -96,7 +96,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
     public boolean istPositiv()
     {
         //TODO was ist mit 0? Ist der Betrag dann positiv, oder nicht? Evtl. zu istNegativ() umwandeln.
-        return _centBetrag>0;
+        return _centBetrag>=0;
     }
 
     public Geldbetrag subtract(Geldbetrag g2)
