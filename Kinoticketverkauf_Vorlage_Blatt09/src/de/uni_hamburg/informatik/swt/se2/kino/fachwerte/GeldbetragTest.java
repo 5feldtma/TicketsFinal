@@ -2,6 +2,8 @@ package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
 import static org.junit.Assert.*;
 
+import java.util.regex.Pattern;
+
 import org.junit.Test;
 
 public class GeldbetragTest
@@ -91,5 +93,17 @@ public class GeldbetragTest
         assertEquals("10,77", g3.toString());
     }
     
-    
+    @Test
+    public void testeCompareTo()
+    {
+        Geldbetrag g1 = Geldbetrag.select(1337);
+        Geldbetrag g2 = Geldbetrag.select("13,37");
+        Geldbetrag g3 = Geldbetrag.select(80085);
+        Geldbetrag g4 = Geldbetrag.select("42");
+        
+        assertTrue(0 == g1.compareTo(g2));
+        assertTrue(0 > g1.compareTo(g3));
+        assertTrue(0 < g1.compareTo(g4));
+        
+    }
 }
