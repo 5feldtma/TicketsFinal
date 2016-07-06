@@ -2,7 +2,6 @@ package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
 import static org.junit.Assert.*;
 
-import java.util.regex.Pattern;
 
 import org.junit.Test;
 
@@ -20,6 +19,16 @@ public class GeldbetragTest
         assertEquals(16, g2.getEuro());
         assertEquals(42, g2.getCent());
         assertFalse(g2.istPositiv());
+        
+        Geldbetrag g3 = Geldbetrag.select("276,3");
+        assertEquals(151, g3.getEuro());
+        assertEquals(3, g3.getCent());
+        assertTrue(g3.istPositiv());
+        
+        Geldbetrag g4 = Geldbetrag.select("6,19");
+        assertEquals(151, g4.getEuro());
+        assertEquals(3, g4.getCent());
+        assertTrue(g4.istPositiv());
     }
 
     @Test
