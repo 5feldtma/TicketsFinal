@@ -97,7 +97,9 @@ public class GeldbetragTest
         Geldbetrag g2 = Geldbetrag.select(-200);
         
         assertEquals(Geldbetrag.select(500), g1.multiply(5));
+        assertEquals(Geldbetrag.select(0), g1.multiply(0));
         assertEquals(Geldbetrag.select(-600), g2.multiply(3));
+        assertEquals(Geldbetrag.select(1200), g2.multiply(-6));
     }
     
     @Test

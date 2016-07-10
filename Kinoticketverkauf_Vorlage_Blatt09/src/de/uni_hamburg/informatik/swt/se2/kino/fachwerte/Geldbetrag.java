@@ -111,28 +111,51 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
     {
         return Math.abs(_centBetrag%100);
     }
-
-    public Geldbetrag add(Geldbetrag g2)
+    
+    /**
+     * Gibt den kompletten Betrag des Geldbetrages in Cent aus.
+     */
+    public int getBetrag()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return _centBetrag;
+    }
+
+    /**
+     * Gibt einen Geldbetrag zurück, dessen Betrag gleich der Summe des Parameters und des Geldbetrages, an dem die Methode aufgerufen wurde, ist.
+     * 
+     * @param that Der zu addierende Geldbetrag.
+     */
+    public Geldbetrag add(Geldbetrag that)
+    {
+        int betrag = this._centBetrag + that._centBetrag;
+        return new Geldbetrag(betrag);
+    }
+
+    /**
+     * Gibt einen Geldbetrag zurück, dessen Betrag gleich der Differenz des Parameters und des Geldbetrages, an dem die Methode aufgerufen wurde, ist.
+     * 
+     * @param that Der zu subtrahierende Geldbetrag.
+     */
+    public Geldbetrag subtract(Geldbetrag that)
+    {
+        int betrag = this._centBetrag - that._centBetrag;
+        return new Geldbetrag(betrag);
+    }
+
+    /**
+     * Gibt einen Geldbetrag zurück, dessen Betrag gleich dem Produkt des Parameters und des Geldbetrages, an dem die Methode aufgerufen wurde, ist.
+     * 
+     * @param skalar Der Wert, mit dem der Geldbetrag multipliziert werden soll.
+     */
+    public Geldbetrag multiply(int skalar)
+    {
+        int betrag = this._centBetrag * skalar;
+        return new Geldbetrag(betrag);
     }
 
     public boolean istPositiv()
     {
         //TODO was ist mit 0? Ist der Betrag dann positiv, oder nicht? Evtl. zu istNegativ() umwandeln.
-        return _centBetrag>=0;
-    }
-
-    public Geldbetrag subtract(Geldbetrag g2)
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public Geldbetrag multiply(int i)
-    {
-        // TODO Auto-generated method stub
-        return null;
+        return _centBetrag >= 0;
     }
 }
