@@ -109,7 +109,19 @@ public class GeldbetragTest
         
         assertEquals("10,77", g1.toString());
         assertEquals("10,77", g2.toString());
-        assertEquals("10,77", g3.toString());
+        assertEquals("-10,77", g3.toString());
+    }
+    
+    @Test
+    public void testeAbsToString()
+    {
+        Geldbetrag g1 = Geldbetrag.select(1077);
+        Geldbetrag g2 = Geldbetrag.select("10,77");
+        Geldbetrag g3 = Geldbetrag.select(-1077);
+        
+        assertEquals("10,77", g1.absToString());
+        assertEquals("10,77", g2.absToString());
+        assertEquals("10,77", g3.absToString());
     }
     
     @Test

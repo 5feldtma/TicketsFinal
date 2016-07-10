@@ -41,34 +41,59 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
         return new Geldbetrag(betrag);
     }
     
-    
     @Override
     public int compareTo(Geldbetrag that)
     {
-        return this._centBetrag-that._centBetrag;
+        return this._centBetrag - that._centBetrag;
     }
 
     @Override
-    public boolean equals(Object o)
+    public boolean equals(Object obj)
     {
-        return false;
+        if(obj instanceof Geldbetrag)
+        {
+            Geldbetrag that = (Geldbetrag) obj;
+            return equals(that);
+        }
+        else
+        {
+            return false;
+        }
     }
     
+    /**
+     * Zwei Geldbeträge, die den selben Centbetrag enthalten, werden als gleich angesehen.
+     */
     private boolean equals(Geldbetrag that)
     {
-        return false;
+        return this._centBetrag == that._centBetrag;
     }
 
     @Override
     public int hashCode()
     {
-        return 0;
+        return _centBetrag;
     }
 
     @Override
     public String toString()
     {
-        return "";
+        return getEuro() + "," + getCent();
+    }
+    
+    /**
+     * Gibt den absoluten Betrag zurück.
+     */
+    public String absToString()
+    {
+        if(this.istPositiv())
+        {
+            return toString();
+        }
+        else
+        {
+            return -1 * getEuro() + "," + getCent();
+        }
     }
 
     /**
