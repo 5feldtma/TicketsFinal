@@ -10,7 +10,7 @@ public class GeldbetragTest
     @Test
     public void testeKonstruktoren()
     {
-        Geldbetrag g1 = Geldbetrag.select("1513");
+        Geldbetrag g1 = Geldbetrag.select("-1513");
         assertEquals(1513, g1.getEuro());
         assertEquals(0, g1.getCent());
         assertTrue(g1.istPositiv());
@@ -108,12 +108,12 @@ public class GeldbetragTest
     public void testeToString()
     {
         Geldbetrag g1 = Geldbetrag.select(1077);
-        Geldbetrag g2 = Geldbetrag.select("10,77");
+        Geldbetrag g2 = Geldbetrag.select("-10,77");
         Geldbetrag g3 = Geldbetrag.select(-1077);
         Geldbetrag g4 = Geldbetrag.select(-77);
         
         assertEquals("10,77", g1.toString());
-        assertEquals("10,77", g2.toString());
+        assertEquals("-10,77", g2.toString());
         assertEquals("-10,77", g3.toString());
         assertEquals("-0,77", g4.toString());
     }

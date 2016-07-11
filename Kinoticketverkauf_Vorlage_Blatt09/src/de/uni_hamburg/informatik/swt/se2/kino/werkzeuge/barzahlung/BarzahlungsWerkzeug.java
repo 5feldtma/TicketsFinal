@@ -57,7 +57,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * 
      * @param preis der einzunehmende Gelbetrag
      */
-    public void fuehreBarzahlungDurch(int preis)
+    public void fuehreBarzahlungDurch(long preis)
     {
         _preis = Geldbetrag.select(preis);
         _ausreichenderGeldbetrag = false;
@@ -247,7 +247,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      */
     private void zeigeFehlertext()
     {
-        _ui.getRestbetragTextfield().setText(" Err ");
+        _ui.getRestbetragTextfield().setText(" Error ");
     }
 
     /**

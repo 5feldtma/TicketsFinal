@@ -9,7 +9,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
     private final long _centBetrag;
 
     private final static Pattern _pattern = Pattern
-        .compile("(\\d*)(,?)(\\d{1,2})");
+        .compile("(-?)(\\d*)(,?)(\\d{1,2})");
 
     private Geldbetrag(long betrag)
     {
@@ -33,22 +33,26 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
         int betrag = 0;
         matcher.matches();
 
-        if (matcher.group(2)
+        if (matcher.group(3)
             .equals(",")
-                && !matcher.group(3)
+                && !matcher.group(4)
                     .isEmpty())
         {
-            betrag = (int) (Integer.parseInt(matcher.group(3))
-                    * (100 / Math.pow(10, matcher.group(3)
+            betrag = (int) (Integer.parseInt(matcher.group(4))
+                    * (100 / Math.pow(10, matcher.group(4)
                         .length())));
             ;
-            betrag += Integer.parseInt(matcher.group(1)) * 100;
+            betrag += Integer.parseInt(matcher.group(2)) * 100;
         }
         else
         {
             
             betrag = Integer.parseInt(matcher.group()) * 100;
-            System.out.println(betrag);
+        }
+        
+        if(!matcher.group(1).isEmpty())
+        {
+            betrag *= -1;
         }
 
         /*
@@ -65,7 +69,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
         return new Geldbetrag(betrag);
     }
 
-    public static Geldbetrag select(int betrag)
+    public static Geldbetrag select(long betrag)
     {
         return new Geldbetrag(betrag);
     }
