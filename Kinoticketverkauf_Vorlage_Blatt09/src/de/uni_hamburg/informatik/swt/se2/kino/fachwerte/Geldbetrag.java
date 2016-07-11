@@ -6,12 +6,12 @@ import java.util.regex.Pattern;
 public final class Geldbetrag implements Comparable<Geldbetrag>
 {
 
-    private final int _centBetrag;
+    private final long _centBetrag;
 
     private final static Pattern _pattern = Pattern
         .compile("(\\d*)(,?)(\\d{1,2})");
 
-    private Geldbetrag(int betrag)
+    private Geldbetrag(long betrag)
     {
         _centBetrag = betrag;
     }
@@ -24,7 +24,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
      */
     public static Geldbetrag select(String eingabe) throws IllegalStateException
     {
-        if (eingabe.length() > 8)
+        if (eingabe.length() > 12)
         {
             throw new IllegalStateException();
         }
@@ -73,7 +73,23 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
     @Override
     public int compareTo(Geldbetrag that)
     {
-        return this._centBetrag - that._centBetrag;
+        int result;
+        
+        if (this._centBetrag - that._centBetrag < 0)
+        {
+            result = -1;
+        }
+        else if (this._centBetrag - that._centBetrag > 0)
+        {
+            result = 1;
+        }
+        else
+        {
+            result = 0;
+        }
+        
+        return result;
+        
     }
 
     @Override
@@ -101,7 +117,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
     @Override
     public int hashCode()
     {
-        return _centBetrag;
+        return (int) (_centBetrag % Integer.MAX_VALUE);
     }
 
     /**
@@ -128,7 +144,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
     /**
      * Gibt den Euroanteil des Geldbetrages aus.
      */
-    public int getEuro()
+    public long getEuro()
     {
         return Math.abs(_centBetrag / 100);
     }
@@ -136,7 +152,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
     /**
      * Gibt den Centanteil des Geldbetrages aus.
      */
-    public int getCent()
+    public long getCent()
     {
         return Math.abs(_centBetrag % 100);
     }
@@ -144,7 +160,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
     /**
      * Gibt den kompletten Betrag des Geldbetrages in Cent aus.
      */
-    public int getBetrag()
+    public long getBetrag()
     {
         return _centBetrag;
     }
@@ -156,7 +172,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
      */
     public Geldbetrag add(Geldbetrag that)
     {
-        int betrag = this._centBetrag + that._centBetrag;
+        long betrag = this._centBetrag + that._centBetrag;
         return new Geldbetrag(betrag);
     }
 
@@ -167,7 +183,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
      */
     public Geldbetrag subtract(Geldbetrag that)
     {
-        int betrag = this._centBetrag - that._centBetrag;
+        long betrag = this._centBetrag - that._centBetrag;
         return new Geldbetrag(betrag);
     }
 
@@ -178,7 +194,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
      */
     public Geldbetrag multiply(int skalar)
     {
-        int betrag = this._centBetrag * skalar;
+        long betrag = this._centBetrag * skalar;
         return new Geldbetrag(betrag);
     }
 
