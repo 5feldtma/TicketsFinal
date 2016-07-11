@@ -116,7 +116,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
      */
     private boolean equals(Geldbetrag that)
     {
-        return this._centBetrag == that._centBetrag;
+        return this._centBetrag == that._centBetrag;//WARUM GEHT DAS????????
     }
 
     @Override
