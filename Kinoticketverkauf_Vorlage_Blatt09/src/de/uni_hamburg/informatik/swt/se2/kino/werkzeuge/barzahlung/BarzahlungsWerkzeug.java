@@ -55,11 +55,11 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * Startet den Barzahlungsvorgang. Die UI wird angezeigt. Der Programmfluss
      * kehrt erst nach dem Beenden des Bezahlvorgangs an den Aufrufer zurück.
      * 
-     * @param preis der einzunehmende Gelbetrag
+     * @param _ausgewaehlterGesamtbetrag der einzunehmende Gelbetrag
      */
-    public void fuehreBarzahlungDurch(long preis)
+    public void fuehreBarzahlungDurch(Geldbetrag _ausgewaehlterGesamtbetrag)
     {
-        _preis = Geldbetrag.select(preis);
+        _preis = _ausgewaehlterGesamtbetrag;
         _ausreichenderGeldbetrag = false;
         _barzahlungErfolgreich = false;
         setzeUIAnfangsstatus();
