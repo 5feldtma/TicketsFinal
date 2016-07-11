@@ -128,15 +128,16 @@ public class PlatzVerkaufsWerkzeug
         if (istVerkaufenMoeglich(plaetze))
         {
             long preis = _vorstellung.getPreisFuerPlaetze(plaetze);
-            _ui.getPreisLabel().setText(
-                    "Gesamtpreis: " + preis + " Eurocent");
             _ausgewaehlterGesamtbetrag = Geldbetrag.select(preis);
+            _ui.getPreisLabel().setText(
+                    "Gesamtpreis: " + _ausgewaehlterGesamtbetrag + " €");
         }
         else if (istStornierenMoeglich(plaetze))
         {
             long preis = _vorstellung.getPreisFuerPlaetze(plaetze);
+            _ausgewaehlterGesamtbetrag = Geldbetrag.select(preis);
             _ui.getPreisLabel().setText(
-                    "Gesamtstorno: " + preis + " Eurocent");
+                    "Gesamtstorno: " + _ausgewaehlterGesamtbetrag + " €");
         }
         else if (!plaetze.isEmpty())
         {
@@ -146,7 +147,7 @@ public class PlatzVerkaufsWerkzeug
         else
         {
             _ui.getPreisLabel().setText(
-                    "Gesamtpreis: 0 Eurocent");
+                    "Gesamtpreis: 0 €");
         }
     }
 
