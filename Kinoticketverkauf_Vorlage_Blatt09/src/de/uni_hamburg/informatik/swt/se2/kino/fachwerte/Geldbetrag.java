@@ -5,37 +5,52 @@ import java.util.regex.Pattern;
 
 public final class Geldbetrag implements Comparable<Geldbetrag>
 {
-    
+
     private final int _centBetrag;
-    
-    private final static Pattern _pattern = Pattern.compile("(\\d{0,})(,?)(\\d{0,2})");
-    
+
+    private final static Pattern _pattern = Pattern
+        .compile("(\\d*)(,?)(\\d{1,2})");
 
     private Geldbetrag(int betrag)
     {
-        _centBetrag = betrag;  
+        _centBetrag = betrag;
     }
 
-    public static Geldbetrag select(String s)
+    /**
+     * 
+     * @param eingabe Die Eingabe
+     * @throws IllegalStateException Bei falschem Eingabeformat
+     * @return Geldbetrag aus der Eingabe
+     */
+    public static Geldbetrag select(String eingabe) throws IllegalStateException
     {
-        Matcher matcher = _pattern.matcher(s);
+        if (eingabe.length() > 8)
+        {
+            throw new IllegalStateException();
+        }
+
+        Matcher matcher = _pattern.matcher(eingabe);
         int betrag = 0;
         matcher.matches();
-        
-        
-        if(matcher.group(2).equals(","))
+
+        if (matcher.group(2)
+            .equals(",")
+                && !matcher.group(3)
+                    .isEmpty())
         {
-            betrag = (int) (Integer.parseInt(matcher.group(3))*(100/Math.pow(10, matcher.group(3).length())));
-            System.out.println("b: " + betrag);
-            betrag += Integer.parseInt(matcher.group(1))*100;
-            System.out.println("c: " + betrag);
+            betrag = (int) (Integer.parseInt(matcher.group(3))
+                    * (100 / Math.pow(10, matcher.group(3)
+                        .length())));
+            ;
+            betrag += Integer.parseInt(matcher.group(1)) * 100;
         }
         else
         {
-            betrag = Integer.parseInt(matcher.group(0));
-            System.out.println("a: " + betrag);
+            
+            betrag = Integer.parseInt(matcher.group()) * 100;
+            System.out.println(betrag);
         }
-        
+
         /*
         if(matcher.group(2).equals(","))
         {
@@ -46,15 +61,15 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
         betrag += Integer.parseInt(matcher.group(1))*100;
         System.out.println("c: " + betrag);
         */
-        
+
         return new Geldbetrag(betrag);
     }
-    
+
     public static Geldbetrag select(int betrag)
     {
         return new Geldbetrag(betrag);
     }
-    
+
     @Override
     public int compareTo(Geldbetrag that)
     {
@@ -64,7 +79,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
     @Override
     public boolean equals(Object obj)
     {
-        if(obj instanceof Geldbetrag)
+        if (obj instanceof Geldbetrag)
         {
             Geldbetrag that = (Geldbetrag) obj;
             return equals(that);
@@ -74,7 +89,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
             return false;
         }
     }
-    
+
     /**
      * Zwei Geldbeträge, die den selben Centbetrag enthalten, werden als gleich angesehen.
      */
@@ -89,24 +104,24 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
         return _centBetrag;
     }
 
-    @Override
-    public String toString()
-    {
-        return getEuro() + "," + getCent();
-    }
-    
     /**
      * Gibt den absoluten Betrag zurück.
      */
     public String absToString()
     {
-        if(this.istPositiv())
+        return getEuro() + "," + getCent();
+    }
+
+    @Override
+    public String toString()
+    {
+        if (this.istPositiv())
         {
-            return toString();
+            return absToString();
         }
         else
         {
-            return -1 * getEuro() + "," + getCent();
+            return "-" + getEuro() + "," + getCent();
         }
     }
 
@@ -115,7 +130,7 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
      */
     public int getEuro()
     {
-        return _centBetrag/100;
+        return Math.abs(_centBetrag / 100);
     }
 
     /**
@@ -123,9 +138,9 @@ public final class Geldbetrag implements Comparable<Geldbetrag>
      */
     public int getCent()
     {
-        return Math.abs(_centBetrag%100);
+        return Math.abs(_centBetrag % 100);
     }
-    
+
     /**
      * Gibt den kompletten Betrag des Geldbetrages in Cent aus.
      */

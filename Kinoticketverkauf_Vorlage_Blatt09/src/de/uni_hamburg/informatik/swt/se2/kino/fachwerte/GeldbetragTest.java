@@ -11,12 +11,12 @@ public class GeldbetragTest
     public void testeKonstruktoren()
     {
         Geldbetrag g1 = Geldbetrag.select("1513");
-        assertEquals(15, g1.getEuro());
-        assertEquals(13, g1.getCent());
+        assertEquals(1513, g1.getEuro());
+        assertEquals(0, g1.getCent());
         assertTrue(g1.istPositiv());
         
         Geldbetrag g2 = Geldbetrag.select(-1642);
-        assertEquals(-16, g2.getEuro());//TODO soll hier 16 oder -16 gefordert werden?
+        assertEquals(16, g2.getEuro());
         assertEquals(42, g2.getCent());
         assertFalse(g2.istPositiv());
         
@@ -31,14 +31,16 @@ public class GeldbetragTest
         assertTrue(g4.istPositiv());
         
         Geldbetrag g5 = Geldbetrag.select("7");
-        assertEquals(0, g5.getEuro());
-        assertEquals(7, g5.getCent());
+        assertEquals(7, g5.getEuro());
+        assertEquals(0, g5.getCent());
         assertTrue(g5.istPositiv());
         
         Geldbetrag g6 = Geldbetrag.select("0");
         assertEquals(0, g6.getEuro());
         assertEquals(0, g6.getCent());
         assertTrue(g6.istPositiv());//TODO ist null positiv?
+        
+        
     }
 
     @Test
@@ -75,7 +77,7 @@ public class GeldbetragTest
         Geldbetrag g2 = Geldbetrag.select("100");
         Geldbetrag g3 = Geldbetrag.select(-200);
         
-        assertEquals(Geldbetrag.select(200), g1.add(g2));
+        assertEquals(Geldbetrag.select(10100), g1.add(g2));
         assertEquals(Geldbetrag.select(-100), g1.add(g3));
     }
     
@@ -83,7 +85,7 @@ public class GeldbetragTest
     public void testeSubtraktion()
     {
         Geldbetrag g1 = Geldbetrag.select(100);
-        Geldbetrag g2 = Geldbetrag.select("100");
+        Geldbetrag g2 = Geldbetrag.select("1");
         Geldbetrag g3 = Geldbetrag.select(-200);
         
         assertEquals(Geldbetrag.select(0), g1.subtract(g2));
@@ -108,10 +110,12 @@ public class GeldbetragTest
         Geldbetrag g1 = Geldbetrag.select(1077);
         Geldbetrag g2 = Geldbetrag.select("10,77");
         Geldbetrag g3 = Geldbetrag.select(-1077);
+        Geldbetrag g4 = Geldbetrag.select(-77);
         
         assertEquals("10,77", g1.toString());
         assertEquals("10,77", g2.toString());
         assertEquals("-10,77", g3.toString());
+        assertEquals("-0,77", g4.toString());
     }
     
     @Test
@@ -136,7 +140,7 @@ public class GeldbetragTest
         
         assertTrue(0 == g1.compareTo(g2));
         assertTrue(0 > g1.compareTo(g3));
-        assertTrue(0 < g1.compareTo(g4));
+        assertTrue(0 > g1.compareTo(g4));
         
     }
 }
